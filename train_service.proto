@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package train_service;
+
+service TrainService {
+  rpc PurchaseTicket(PurchaseTicketRequest) returns (PurchaseTicketResponse) {}
+  rpc GetReceipt(GetReceiptRequest) returns (GetReceiptResponse) {}
+  rpc ViewUsersBySection(ViewUsersBySectionRequest) returns (ViewUsersBySectionResponse) {}
+  rpc RemoveUser(RemoveUserRequest) returns (RemoveUserResponse) {}
+  rpc ModifyUserSeat(ModifyUserSeatRequest) returns (ModifyUserSeatResponse) {}
+}
+
+message PurchaseTicketRequest {
+  string departure = 1;  
+  string to = 2;
+  User user = 3;
+}
+
+message PurchaseTicketResponse {
+  string receipt_id = 1;
+}
+
+message GetReceiptRequest {
+  string receipt_id = 1;
+}
+
+message GetReceiptResponse {
+  string departure = 1;
+  string to = 2;
+  User user = 3;
+  float price_paid = 4;
+  string seat = 5;
+}
+
+message ViewUsersBySectionRequest {
+  string section = 1;
+}
+
+message ViewUsersBySectionResponse {
+  repeated User users = 1;
+}
+
+message RemoveUserRequest {
+  string receipt_id = 1;
+}
+
+message RemoveUserResponse {}
+
+message ModifyUserSeatRequest {
+  string receipt_id = 1;
+  string new_seat = 2;
+}
+
+message ModifyUserSeatResponse {}
+
+message User {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+}
